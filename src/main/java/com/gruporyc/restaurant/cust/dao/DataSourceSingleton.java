@@ -1,12 +1,3 @@
-/******************************************************************
- *
- * This code is for the Pappking service project.
- *
- *
- * © 2018, Pappking Management All rights reserved.
- *
- *
- ******************************************************************/
 package com.gruporyc.restaurant.cust.dao;
 
 import com.gruporyc.restaurant.cust.utilities.TextsHelper;
@@ -24,11 +15,11 @@ public class DataSourceSingleton {
 
     private static DataSource instance = null;
 
-//    @Value("${api.customer.db.url}")
+//    @Value("${api.customers.db.url}")
 //    private static String url;
-//    @Value("${api.customer.db.username}")
+//    @Value("${api.customers.db.username}")
 //    private static String username;
-//    @Value("${api.customer.db.password}")
+//    @Value("${api.customers.db.password}")
 //    private static String password;
 
     @Autowired
@@ -56,7 +47,7 @@ public class DataSourceSingleton {
 
             Flyway flyway = new Flyway();
             flyway.setDataSource(instance);
-            flyway.setLocations("classpath:db/migration/customer");
+            flyway.setLocations("classpath:db/migration/customers");
             flyway.migrate();
         }
         return instance;

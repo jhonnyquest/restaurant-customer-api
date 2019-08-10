@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class SimpleResponse {
     private boolean success = false;
     private String message;
+    private String code = "N/A";
 
     /**
      * SimpleResponse: Elevated empty constructor of the class
@@ -26,11 +27,13 @@ public class SimpleResponse {
      * @author jmunoz
      * @param success Boolean indicator for success transaction
      * @param message Support message for transaction response
-     * @since 07/08/2019
+     * @param code Response code if available
+     * @since 10/08/2019
      */
-    public SimpleResponse(boolean success, String message){
+    public SimpleResponse(boolean success, String message, String code){
         this.success = success;
         this.message = message;
+        this.code = code;
     }
 
     /**
@@ -62,4 +65,20 @@ public class SimpleResponse {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    /**
+     * @return Response code for transaction response
+     */
+    @JsonProperty("code")
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * @param code Response code for transaction response
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
+
 }

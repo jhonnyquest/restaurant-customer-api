@@ -1,0 +1,1 @@
+CREATE TRIGGER customers_update_trigger BEFORE UPDATE ON customers FOR EACH ROW SET new.update_date = NOW();

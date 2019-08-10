@@ -17,7 +17,7 @@ import java.util.*;
 public class CustomerRepository {
     private final DataSource ds;
 
-    @Value("${api.customer.db.url}")
+    @Value("${api.customers.db.url}")
     private String url;
 
     public CustomerRepository() {

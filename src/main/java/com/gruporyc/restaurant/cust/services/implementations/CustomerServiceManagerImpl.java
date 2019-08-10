@@ -24,7 +24,7 @@ public class CustomerServiceManagerImpl implements CustomerServiceManager {
     @Override
     public SimpleResponse createCustomer(CustomerDTO newCustomer) {
         String customerId = customerRepository.createCustomer(CustomerMapper.customerFromCustomerDTO(newCustomer));
-        return new SimpleResponse(true, customerId);
+        return new SimpleResponse(true, customerId, null);
     }
 
     @Override

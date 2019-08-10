@@ -59,7 +59,7 @@ public class ProxyEndpointController {
      * @param customerId Universal identifier for Customers
      * @see ResponseEntity<Object>
      */
-    @RequestMapping(value = "customer/{customerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "customers/{customerId}", method = RequestMethod.GET)
     public ResponseEntity<Object> getCustomerById(@PathVariable("customerId") String customerId) {
 
         ResponseEntity<Object> responseEntity;
@@ -104,7 +104,7 @@ public class ProxyEndpointController {
                 textsHelper.getTranslation("api.error.unknownError");
         }
         return  ResponseEntity.status(status)
-                .body(new SimpleResponse(false, message));
+                .body(new SimpleResponse(false, message, String.valueOf(ex.getStatusCode().value())));
 
     }
 }
