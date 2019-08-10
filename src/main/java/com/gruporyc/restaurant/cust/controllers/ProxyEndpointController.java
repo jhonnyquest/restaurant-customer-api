@@ -40,7 +40,7 @@ public class ProxyEndpointController {
      * @param newCustomer New CustomerDTO to be created
      * @see ResponseEntity<Object>
      */
-    @RequestMapping(value = "customer", method = RequestMethod.POST)
+    @RequestMapping(value = "customers", method = RequestMethod.POST)
     public ResponseEntity<Object> createCustomer(@Validated @RequestBody CustomerDTO newCustomer) {
 
         ResponseEntity<Object> responseEntity;
