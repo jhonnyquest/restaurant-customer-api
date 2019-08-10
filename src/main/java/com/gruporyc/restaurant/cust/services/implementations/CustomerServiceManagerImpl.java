@@ -1,6 +1,6 @@
 package com.gruporyc.restaurant.cust.services.implementations;
 
-import com.gruporyc.restaurant.cust.DAO.CustomerRepository;
+import com.gruporyc.restaurant.cust.dao.CustomerRepository;
 import com.gruporyc.restaurant.cust.mappers.CustomerMapper;
 import com.gruporyc.restaurant.cust.dto.CustomerDTO;
 import com.gruporyc.restaurant.cust.dto.SimpleResponse;

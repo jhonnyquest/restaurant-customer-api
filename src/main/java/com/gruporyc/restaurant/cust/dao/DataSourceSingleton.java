@@ -7,7 +7,7 @@
  *
  *
  ******************************************************************/
-package com.gruporyc.restaurant.cust.DAO;
+package com.gruporyc.restaurant.cust.dao;
 
 import com.gruporyc.restaurant.cust.utilities.TextsHelper;
 import com.zaxxer.hikari.HikariConfig;

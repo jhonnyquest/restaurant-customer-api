@@ -1,4 +1,4 @@
-package com.gruporyc.restaurant.cust.DAO;
+package com.gruporyc.restaurant.cust.dao;
 
 import com.gruporyc.restaurant.cust.model.Customer;
 import com.gruporyc.restaurant.cust.enums.Status;
