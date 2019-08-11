@@ -38,7 +38,7 @@ public class CustomerDTO {
     /**
      * @return the CustomerDTO's first name
      */
-    @JsonProperty("name")
+    @JsonProperty("first_name")
     public String getNames() {
         return names;
     }
