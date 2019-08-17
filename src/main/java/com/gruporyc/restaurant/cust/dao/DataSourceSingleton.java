@@ -1,41 +1,34 @@
 package com.gruporyc.restaurant.cust.dao;
 
-import com.gruporyc.restaurant.cust.utilities.TextsHelper;
+import com.gruporyc.restaurant.cust.utilities.PropertyManager;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.util.Optional;
+import java.util.Properties;
 
 @Component
 public class DataSourceSingleton {
 
     private static DataSource instance = null;
 
-//    @Value("${api.customers.db.url}")
-//    private static String url;
-//    @Value("${api.customers.db.username}")
-//    private static String username;
-//    @Value("${api.customers.db.password}")
-//    private static String password;
-
-    @Autowired
-    private TextsHelper textsHelper;
-
-    public DataSourceSingleton() {}
+    public DataSourceSingleton() {
+    }
 
     public static synchronized DataSource getInstance() {
         if (instance == null) {
+            PropertyManager pm = new PropertyManager();
+            Properties properties = pm.getInstance();
             HikariConfig config = new HikariConfig();
             config.setJdbcUrl(Optional.ofNullable(System.getenv("CUSTOMER_DB_URL"))
-                    .orElse("jdbc:mysql://localhost:3306/restaurant_customers"));
+                    .orElse(properties.getProperty("api.customers.db.url")));
             config.setUsername(Optional.ofNullable(System.getenv("CUSTOMER_DB_USERNAME"))
-                    .orElse("customeruser"));
+                    .orElse(properties.getProperty("api.customers.db.username")));
             config.setPassword(Optional.ofNullable(System.getenv("CUSTOMER_DB_PASSWORD"))
-                    .orElse("customerpassword"));
+                    .orElse(properties.getProperty("api.customers.db.password")));
             config.addDataSourceProperty("cachePrepStmts", "true");
             config.addDataSourceProperty("prepStmtCacheSize", "250");
             config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
@@ -53,4 +46,5 @@ public class DataSourceSingleton {
         return instance;
     }
 }
+
 
