@@ -35,4 +35,13 @@ public class CustomerServiceManagerImpl implements CustomerServiceManager {
         }
         return CustomerMapper.customerDTOFromCustomer(customer.get());
     }
+
+    @Override
+    public CustomerDTO getCustomerByEmail(String email) {
+        Optional<Customer> customer = customerRepository.getCustomerByEmail(email);
+        if (!customer.isPresent()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        }
+        return CustomerMapper.customerDTOFromCustomer(customer.get());
+    }
 }

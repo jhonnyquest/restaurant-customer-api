@@ -42,29 +42,7 @@ public class CustomerRepository {
                     "    update_date " +
                     " FROM customers WHERE id = ?";
 
-            Customer customer = run.query(query,
-                    rs -> {
-                        if(!rs.next()){
-                            return null;
-                        }
-                        rs.last();
-
-                        return new Customer.Builder()
-                                .setId(rs.getString(1))
-                                .setName(rs.getString(2))
-                                .setLastName(rs.getString(3))
-                                .setEmail(rs.getString(4))
-                                .setPhone(rs.getString(5))
-                                .setAddress1(rs.getString(6))
-                                .setAddress2(rs.getString(7))
-                                .setCity(rs.getString(8))
-                                .setState(rs.getString(9))
-                                .setCountry(rs.getString(10))
-                                .setStatus(rs.getString(11))
-                                .setCreateDate(rs.getString(12))
-                                .setUpdateDate(rs.getString(13))
-                                .build();
-                    }, id);
+            Customer customer = getCustomer(id, run, query);
             return Optional.ofNullable(customer);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -89,39 +67,43 @@ public class CustomerRepository {
                     "    update_date " +
                     " FROM customers WHERE email = ?";
 
-            Customer customer = run.query(query,
-                    rs -> {
-                        if(!rs.next()){
-                            return null;
-                        }
-                        rs.last();
-
-                        return new Customer.Builder()
-                                .setId(rs.getString(1))
-                                .setName(rs.getString(2))
-                                .setLastName(rs.getString(3))
-                                .setEmail(rs.getString(4))
-                                .setPhone(rs.getString(5))
-                                .setAddress1(rs.getString(6))
-                                .setAddress2(rs.getString(7))
-                                .setCity(rs.getString(8))
-                                .setState(rs.getString(9))
-                                .setCountry(rs.getString(10))
-                                .setStatus(rs.getString(11))
-                                .setCreateDate(rs.getString(12))
-                                .setUpdateDate(rs.getString(13))
-                                .build();
-                    }, email);
+            Customer customer = getCustomer(email, run, query);
             return Optional.ofNullable(customer);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    private Customer getCustomer(String param, QueryRunner run, String query) throws SQLException {
+        return run.query(query,
+                rs -> {
+                    if(!rs.next()){
+                        return null;
+                    }
+                    rs.last();
+
+                    return new Customer.Builder()
+                            .setId(rs.getString(1))
+                            .setName(rs.getString(2))
+                            .setLastName(rs.getString(3))
+                            .setEmail(rs.getString(4))
+                            .setPhone(rs.getString(5))
+                            .setAddress1(rs.getString(6))
+                            .setAddress2(rs.getString(7))
+                            .setCity(rs.getString(8))
+                            .setState(rs.getString(9))
+                            .setCountry(rs.getString(10))
+                            .setStatus(rs.getString(11))
+                            .setCreateDate(rs.getString(12))
+                            .setUpdateDate(rs.getString(13))
+                            .build();
+                }, param);
+    }
+
     public String createCustomer(Customer customer) {
         QueryRunner run = new QueryRunner(ds);
 
-        String cutomerId = Objects.isNull(customer.getId()) ? UUID.randomUUID().toString() : customer.getId();
+        String customerId = UUID.randomUUID().toString();
         try {
             Connection conn = ds.getConnection();
             conn.setAutoCommit(false);
@@ -138,7 +120,7 @@ public class CustomerRepository {
                         "    country," +
                         "    status)" +
                         "VALUES " +
-                        "('" + cutomerId + "', " +
+                        "('" + customerId + "', " +
                         "'" + customer.getName() + "', " +
                         "'" + customer.getLastName() + "', " +
                         "'" + customer.getEmail() + "', " +
@@ -148,9 +130,6 @@ public class CustomerRepository {
                         "'" + customer.getCity() + "', " +
                         "'" + customer.getState() + "', " +
                         "'" + customer.getCountry() + "', " +
-
-
-
                         "'" + Status.ACTIVE.name() + "');";
                 run.insert(conn, insert, new ScalarHandler<>());
                 conn.commit();
@@ -165,6 +144,6 @@ public class CustomerRepository {
             throw new RuntimeException(e);
         }
 
-        return cutomerId;
+        return customerId;
     }
 }

@@ -71,6 +71,25 @@ public class ProxyEndpointController {
         return responseEntity;
     }
 
+    /**
+     * getCustomerByEmail: Method to get customer information given customer email
+     * @author jmunoz
+     * @since 07/08/2019
+     * @param email Customer email
+     * @see ResponseEntity<Object>
+     */
+    @RequestMapping(value = "customers/email/{email}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getCustomerByEmail(@PathVariable("email") String email) {
+
+        ResponseEntity<Object> responseEntity;
+        try {
+            responseEntity = ResponseEntity.ok(customerService.getCustomerByEmail(email));
+        } catch (HttpClientErrorException ex) {
+            responseEntity = setErrorResponse(ex);
+        }
+        return responseEntity;
+    }
+
     private ResponseEntity<Object> setErrorResponse(HttpClientErrorException ex) {
         String message = "";
         HttpStatus status;

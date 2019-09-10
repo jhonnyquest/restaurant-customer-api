@@ -7,4 +7,6 @@ public interface CustomerServiceManager {
     SimpleResponse createCustomer(CustomerDTO newCustomer);
 
     CustomerDTO getCustomerById(String customerId);
+
+    CustomerDTO getCustomerByEmail(String email);
 }
